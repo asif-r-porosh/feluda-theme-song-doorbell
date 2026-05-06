@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nokia RTTTL Player</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            color: #00d4aa;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subheading {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #8899aa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .about {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #b0b8c4;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 0.5rem;
+        }
+
+        .about em {
+            color: #ff6b6b;
+            font-style: normal;
+        }
+
+        .control-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #8899aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        select, textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238899aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #00d4aa;
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        select option {
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #playBtn {
+            background: linear-gradient(135deg, #00d4aa, #00a884);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+        }
+
+        #playBtn:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+        }
+
+        #stopBtn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        #stopBtn:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            color: #8899aa;
+            min-height: 1.5rem;
+        }
+
+        .status.playing {
+            color: #00d4aa;
+        }
+
+        .status.error {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+            h1 { font-size: 1.5rem; }
+            .about { font-size: 0.85rem; }
+            button { padding: 0.75rem 1rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nokia RTTTL Player</h1>
+        <p class="subheading">Ring Tone Text Transfer Language</p>
+        <p class="about">
+            In the late 1990s and early 2000s, Nokia phones carried a magical language called <a href="https://en.wikipedia.org/wiki/Ring_Tone_Text_Transfer_Language"><em>RTTTL</em></a>. A few characters, a tiny speaker, and suddenly your pocket had a personality.
+        </p>    
+        <div class="control-group">
+            <label for="presetSelect">Preset Ringtones</label>
+            <select id="presetSelect">
+                <option value="" disabled>Choose a preset...</option>
+                <option selected value="Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5">Feluda Theme: Satyajit Ray</option>
+                <option value="MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d">Mission: Impossible</option>
+                <option value="Tetris:d=4,o=5,b=160:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e6,8e6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,a">Tetris Theme</option>
+                <option value="Knight Rider:o=5,d=32,b=63:16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4d6,8p,4p,16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4f6">Knight Rider</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="rtttlInput">RTTTL String</label>
+            <textarea id="rtttlInput" placeholder="Paste RTTTL here and press play..." spellcheck="false">Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5</textarea>
+        </div>
+
+        <div class="button-group">
+            <button id="playBtn">Play</button>
+            <button id="stopBtn" disabled>Stop</button>
+        </div>
+
+        <div class="status" id="status"></div>    
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const NOTE_FREQUENCIES = {
+                'c': 261.63, 'c#': 277.18, 'db': 277.18,
+                'd': 293.66, 'd#': 311.13, 'eb': 311.13,
+                'e': 329.63, 'fb': 329.63, 'f': 349.23,
+                'f#': 369.99, 'gb': 369.99,
+                'g': 392.00, 'g#': 415.30, 'ab': 415.30,
+                'a': 440.00, 'a#': 466.16, 'bb': 466.16,
+                'b': 493.88, 'cb': 493.88,
+                'p': 0
+            };
+
+            function parseRTTTL(rtttl) {
+                rtttl = rtttl.trim();
+                if (!rtttl) throw new Error('Empty RTTTL string');
+
+                const parts = rtttl.split(':');
+                if (parts.length !== 3) throw new Error('Invalid format: expected name:defaults:notes');
+
+                const [, defaultsStr, notesStr] = parts;
+
+                const defaults = { d: 4, o: 6, b: 63 };
+                defaultsStr.split(',').forEach(function(pair) {
+                    const kv = pair.split('=');
+                    if (kv[0] && kv[1]) defaults[kv[0].trim()] = parseInt(kv[1].trim(), 10);
+                });
+
+                const notes = [];
+                const noteTokens = notesStr.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+
+                for (let i = 0; i < noteTokens.length; i++) {
+                    const token = noteTokens[i];
+                    let pos = 0;
+                    let duration = defaults.d;
+                    let hasDot = false;
+
+                    const durMatch = token.match(/^[0-9]+/);
+                    if (durMatch) {
+                        duration = parseInt(durMatch[0], 10);
+                        pos = durMatch[0].length;
+                    }
+
+                    if (token[pos] === '.') {
+                        hasDot = true;
+                        pos++;
+                    }
+
+                    let note = token[pos];
+                    pos++;
+                    if (pos < token.length && (token[pos] === '#' || token[pos] === 'b')) {
+                        note += token[pos];
+                        pos++;
+                    }
+                    note = note.toLowerCase();
+
+                    if (pos < token.length && token[pos] === '.') {
+                        hasDot = true;
+                        pos++;
+                    }
+
+                    let octave = defaults.o;
+                    if (pos < token.length && /[0-9]/.test(token[pos])) {
+                        octave = parseInt(token[pos], 10);
+                        pos++;
+                    }
+
+                    notes.push({
+                        note: note,
+                        octave: octave,
+                        duration: duration,
+                        dot: hasDot,
+                        bpm: defaults.b
+                    });
+                }
+
+                return notes;
+            }
+
+            function getFrequency(note, octave) {
+                if (note === 'p') return 0;
+                const baseFreq = NOTE_FREQUENCIES[note];
+                if (!baseFreq) return 0;
+                return baseFreq * Math.pow(2, octave - 4);
+            }
+
+            function getDurationMs(duration, dot, bpm) {
+                const beatMs = 60000 / bpm;
+                const wholeNoteMs = beatMs * 4;
+                let ms = wholeNoteMs / duration;
+                if (dot) ms *= 1.5;
+                return ms;
+            }
+
+            let audioCtx = null;
+            let activeNodes = [];
+            let timeoutIds = [];
+            let isPlaying = false;
+
+            function getAudioContext() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                return audioCtx;
+            }
+
+            function stopPlayback() {
+                timeoutIds.forEach(function(id) { clearTimeout(id); });
+                timeoutIds = [];
+
+                activeNodes.forEach(function(node) {
+                    try {
+                        node.stop();
+                    } catch (e) {}
+                });
+                activeNodes = [];
+
+                isPlaying = false;
+                updateUI();
+            }
+
+            function playTone(freq, durationMs, startTime) {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'square';
+                osc.frequency.value = freq;
+
+                const attack = 0.005;
+                const release = 0.03;
+                const sustainTime = Math.max(0, (durationMs / 1000) - attack - release);
+
+                const t0 = startTime;
+                gain.gain.setValueAtTime(0, t0);
+                gain.gain.linearRampToValueAtTime(0.15, t0 + attack);
+                if (sustainTime > 0) {
+                    gain.gain.setValueAtTime(0.15, t0 + attack + sustainTime);
+                }
+                gain.gain.exponentialRampToValueAtTime(0.001, t0 + attack + sustainTime + release);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(t0);
+                osc.stop(t0 + attack + sustainTime + release + 0.01);
+
+                activeNodes.push(osc);
+                return { osc: osc, gain: gain };
+            }
+
+            function playRTTTL(rtttlStr) {
+                stopPlayback();
+
+                let notes;
+                try {
+                    notes = parseRTTTL(rtttlStr);
+                } catch (err) {
+                    showStatus('Parse error: ' + err.message, 'error');
+                    return;
+                }
+
+                if (notes.length === 0) {
+                    showStatus('No notes to play', 'error');
+                    return;
+                }
+
+                const ctx = getAudioContext();
+                isPlaying = true;
+                updateUI();
+                showStatus('Playing...', 'playing');
+
+                let accumulatedMs = 0;
+                const gapMs = 30;
+
+                for (let i = 0; i < notes.length; i++) {
+                    const n = notes[i];
+                    const freq = getFrequency(n.note, n.octave);
+                    const durationMs = getDurationMs(n.duration, n.dot, n.bpm);
+                    const noteStartMs = accumulatedMs;
+
+                    const timeoutId = setTimeout(function() {
+                        if (!isPlaying) return;
+                        if (freq > 0) {
+                            const startTime = ctx.currentTime;
+                            playTone(freq, durationMs, startTime);
+                        }
+                    }, noteStartMs);
+                    timeoutIds.push(timeoutId);
+
+                    accumulatedMs += durationMs + gapMs;
+                }
+
+                const finishId = setTimeout(function() {
+                    if (isPlaying) {
+                        stopPlayback();
+                        showStatus('Finished', '');
+                    }
+                }, accumulatedMs + 100);
+                timeoutIds.push(finishId);
+            }
+
+            const presetSelect = document.getElementById('presetSelect');
+            const rtttlInput = document.getElementById('rtttlInput');
+            const playBtn = document.getElementById('playBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const statusEl = document.getElementById('status');
+
+            function updateUI() {
+                playBtn.disabled = isPlaying;
+                stopBtn.disabled = !isPlaying;
+            }
+
+            function showStatus(msg, type) {
+                statusEl.textContent = msg;
+                statusEl.className = 'status' + (type ? ' ' + type : '');
+            }
+
+            presetSelect.addEventListener('change', function() {
+                const value = this.value;
+                if (value) {
+                    stopPlayback();
+                    rtttlInput.value = value;
+                    showStatus('Preset loaded', '');
+                }
+            });
+
+            playBtn.addEventListener('click', function() {
+                const rtttl = rtttlInput.value.trim();
+                if (!rtttl) {
+                    showStatus('Please enter an RTTTL string', 'error');
+                    return;
+                }
+                playRTTTL(rtttl);
+            });
+
+            stopBtn.addEventListener('click', function() {
+                stopPlayback();
+                showStatus('Stopped', '');
+            });
+
+            rtttlInput.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    playBtn.click();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
