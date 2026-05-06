@@ -1,0 +1,39 @@
+
+RTTTL NOTATION — Feluda Theme
+Satyajit Ray's signature score (Sonar Kella, 1974)
+
+Notes sourced from a veteran YouTuber who transcribed the theme by ear
+and listed them in a video description. Credit to that unnamed careful
+person who wrote it down for no reason other than love of the tune.
+
+Note durations and rest periods were not in the source. Those were tuned
+by listening to the original score repeatedly until the timing felt right —
+not until the math was correct, until it sounded like Feluda.
+
+The firmware does not use this file at runtime. Note frequencies and
+durations are hardcoded directly. This notation is preserved for
+documentation and for anyone who wants to port the melody elsewhere.
+
+RTTTL (Ring Tone Text Transfer Language) was Nokia's format for composable
+ringtones in the late 1990s. You could write a melody in plain text and send
+it via SMS. An entire generation composed music this way, mostly while
+avoiding homework. It never needed to outlive its era. It did anyway.
+
+Author: Asif R. Porosh | 2023
+License: MIT — see LICENSE-MIT
+
+----------------------------------------------------------------------
+RTTTL (copy from here)
+----------------------------------------------------------------------
+
+Feluda:d=8,o=5,b=112:
+4c5,4c5,8b4,8c5,8d5,
+8p,
+4e5,4e5,8f5,8e5,8d5,
+8p,
+4c5,4c5,8b4,8c5,8a4,
+8p,
+4g4,8c5,8b4,8c5
+
+
+
