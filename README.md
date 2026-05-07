@@ -2,51 +2,24 @@
 
 Satyajit Ray's signature score — theme tune of Feluda, as a doorbell.
 
-
-
-
 https://github.com/user-attachments/assets/c79a2e3b-6780-4704-9e8d-c0a3ea4733b7
 
 
-
-
-*Recorded directly from the ATtiny13A output.*
-
-**If you just felt something you can't quite name — welcome. You've heard the Feluda theme. You're now mildly infected, and there's no cure.**
-
-
-
----
-
-## The Idea
-
-Standard doorbells are an insult to the ear. The Westminster chime is competent — it announces, it fulfills its contract, it has no opinion about Satyajit Ray.
-
-I had an ATtiny13A in a parts drawer. 1 kilobyte of flash. 64 bytes of RAM. The question of whether fitting Feluda's theme into it was feasible occurred to me briefly, then I decided it was irrelevant. The fun was in finding out.
-
-The melody compiles to **834 bytes** — 81% of available flash. 190 bytes remaining.
+**Read the full story:** [Ledger][ledger-article] · [LinkedIn][linkedin-article]
 
 ---
 
 ## How It Works
 
-**Trigger mechanism:** The doorbell button sits on the 220V mains line, isolated from the low-voltage circuit by a PC817 optocoupler. Press the button → optocoupler pulls the ATtiny's RESET pin LOW → MCU resets → `setup()` runs the melody once with RGB LED accompaniment → deep sleep (`SLEEP_MODE_PWR_DOWN`).
+Doorbell button on 220V AC mains → PC817 optocoupler → ATtiny13A RESET pin pulled LOW → MCU resets → `setup()` plays melody once with RGB LED accompaniment → `SLEEP_MODE_PWR_DOWN`.
 
 No interrupt handler. No event loop. Hardware reset as the doorbell event.
 
-**Audio:** Square wave bit-banged on PB4 → PAM8403 audio amplifier → 4Ω 3W speaker.
+Audio: square wave bit-banged on PB4 → PAM8403 audio amplifier → 4Ω 3W speaker.
 
-**Power:** Nokia BL-5C LiPo (or any 1S cell) → TP4056 charge/protection module. PAM8403 SHDN pulled LOW when idle to preserve battery.
+Power: Nokia BL-5C LiPo (or any 1S cell) → TP4056 charge/protection module. PAM8403 SHDN pulled LOW when idle.
 
-**Note on the mains-side resistor (R3):** R3 is rated 0.25W; at 220V AC, dissipation is ~0.484W — technically over-rated for sustained operation. SW1 is momentary, so in practice this is fine. If you rev the board, use a 1W rated resistor or an X-rated capacitor dropper for a cleaner solution.
-
----
-
-## The Melody
-
-Notes were sourced from a veteran YouTuber who transcribed the theme by ear and listed them in a video description — that careful, unnamed person who wrote it down for no reason other than love of the tune.
-
-Note durations and rest periods were tuned by listening to the original score repeatedly until the timing felt right. Not until the math was correct — until it sounded like Feluda. The RTTTL notation is preserved in `firmware/feluda_doorbell/feluda.rtttl.txt` for documentation and portability, even though the firmware doesn't use it at runtime.
+Compiles to **834 bytes** (81% of ATtiny13A flash). 190 bytes remaining.
 
 ---
 
@@ -64,7 +37,7 @@ Note durations and rest periods were tuned by listening to the original score re
 | LED3 | Blue LED 3mm |
 | R1 | 10K 0.25W |
 | R2 | 1K 0.25W |
-| R3 | 100K 0.25W (see note above) |
+| R3 | 100K 0.25W |
 | VR1 | 50K trimmer (volume) |
 | C1 | 0.1µF Ceramic |
 | C2 | 1µF Polar |
@@ -75,6 +48,8 @@ Note durations and rest periods were tuned by listening to the original score re
 | H2, H3 | 2 Pin male header |
 | — | 8 Pin IC socket |
 | — | Strip or Perf board, 10×10 holes |
+
+> **Note:** R3 (100K, 0.25W) on the 220V mains side dissipates ~0.484W — over its rated value. Safe for momentary use (SW1 is a doorbell push). For a revised build, use a 1W rated resistor or an X-rated capacitor dropper.
 
 ---
 
@@ -93,10 +68,18 @@ Board package: [MicroCore](https://github.com/MCUdude/MicroCore) by MCUdude
 | Bootloader | None |
 | Programmer | Arduino as ISP |
 
-Flash via USBasp or Arduino as ISP. See `resources/` for wiring diagrams.
+Flash via USBasp or Arduino as ISP. Wiring reference in `resources/attiny13-with-usbasp.png`.
 
-**Schematic and layout:** `hardware/feluda_doorbell.png` (full schematic + perf board layout)
+**Schematic and layout:** `hardware/feluda_doorbell.png`
 **Layout source:** [DIY Layout Creator 4.37.0](https://github.com/bancika/diy-layout-creator/releases/tag/v4.37.0)
+
+---
+
+## RTTTL
+
+The melody notation is in `firmware/feluda_doorbell/feluda.rtttl.txt`. Not used at runtime — hardcoded as note frequencies and durations in firmware. Documented for portability.
+
+**[▶ Play it in your browser](https://asif-r-porosh.github.io/feluda-theme-song-doorbell/)**
 
 ---
 
@@ -105,13 +88,13 @@ Flash via USBasp or Arduino as ISP. See `resources/` for wiring diagrams.
 ```
 ├── firmware/
 │   └── feluda_doorbell/
-│       ├── feluda_doorbell.ino     ← ATtiny13A firmware
-│       └── feluda.rtttl.txt        ← melody notation + documentation
+│       ├── feluda_doorbell.ino
+│       └── feluda.rtttl.txt
 ├── hardware/
-│   ├── feluda_doorbell.diy         ← DIY Layout Creator source
-│   └── feluda_doorbell.png         ← schematic + perf board layout
+│   ├── feluda_doorbell.diy
+│   └── feluda_doorbell.png
 ├── media/
-│   ├── theme-tune-of-feluda.wav    ← recorded from ATtiny output
+│   ├── theme-tune-of-feluda.wav
 │   ├── satyajit-feluda.jpg
 │   └── satyajit-feluda.mp4
 ├── resources/
@@ -123,21 +106,20 @@ Flash via USBasp or Arduino as ISP. See `resources/` for wiring diagrams.
 │   └── PC817-Internal-Pins.png
 ├── LICENSE-MIT
 ├── LICENSE-CERN-OHL-P
-└── README.md
+├── README.md
+└── index.html
 ```
 
 ---
 
 ## License
 
-- **Firmware** (`firmware/`) — [MIT License](LICENSE-MIT)
-- **Hardware** (`hardware/`) — [CERN Open Hardware Licence v2 - Permissive](LICENSE-CERN-OHL-P)
-
-Open source hardware. Build one. Make it play something else. The architecture will hold.
+- **Firmware** (`firmware/`) — [MIT](LICENSE-MIT)
+- **Hardware** (`hardware/`) — [CERN OHL-P v2](LICENSE-CERN-OHL-P)
 
 ---
 
-## Author
+**Designed and developed by [Asif R. Porosh](https://uraal.online) · Rev 1.0 · 2023**
 
-**Asif R. Porosh**
-Built: 2023 | Published: 2026 | Rev 1.0
+[ledger-article]: <!-- LEDGER ARTICLE LINK -->
+[linkedin-article]: <!-- LINKEDIN ARTICLE LINK -->
