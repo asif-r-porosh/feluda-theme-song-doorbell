@@ -2,12 +2,20 @@
 
 Satyajit Ray's signature score — theme tune of Feluda, as a doorbell.
 
-<video controls width="480">
-  <source src="https://raw.githubusercontent.com/asif-r-porosh/feluda-theme-song-doorbell/main/media/satyajit-feluda.mp4" type="video/mp4">
-</video>
+
+
+
+https://github.com/user-attachments/assets/c79a2e3b-6780-4704-9e8d-c0a3ea4733b7
+
+
+
+
 *Recorded directly from the ATtiny13A output.*
 
-> *If you just felt something you can't quite name — welcome. You've heard the Feluda theme. You're now mildly infected, and there's no cure.*
+**If you just felt something you can't quite name — welcome. You've heard the Feluda theme. You're now mildly infected, and there's no cure.**
+
+
+
 ---
 
 ## The Idea
