@@ -5,8 +5,6 @@ Satyajit Ray's signature score — theme tune of Feluda, as a doorbell.
 https://github.com/user-attachments/assets/c79a2e3b-6780-4704-9e8d-c0a3ea4733b7
 
 
-**Read the full story:** [Ledger][ledger-article] · [LinkedIn][linkedin-article]
-
 ---
 
 ## How It Works
@@ -86,28 +84,30 @@ The melody notation is in `firmware/feluda_doorbell/feluda.rtttl.txt`. Not used 
 ## Repository Structure
 
 ```
-├── firmware/
-│   └── feluda_doorbell/
-│       ├── feluda_doorbell.ino
-│       └── feluda.rtttl.txt
-├── hardware/
+.
+├── firmware
+│   ├── feluda_doorbell
+│   │   └── feluda_doorbell.ino
+│   └── feluda.rtttl.txt
+├── hardware
 │   ├── feluda_doorbell.diy
 │   └── feluda_doorbell.png
-├── media/
-│   ├── theme-tune-of-feluda.wav
-│   ├── satyajit-feluda.jpg
-│   └── satyajit-feluda.mp4
-├── resources/
-│   ├── arduino_ide_settings.png
-│   ├── attiny13-with-usbasp.png
-│   ├── attiny13a-pinouts.jpg
-│   ├── oshw-logo-400-px.png
-│   ├── PC817-IC-Pinout.png
-│   └── PC817-Internal-Pins.png
-├── LICENSE-MIT
+├── index.html
 ├── LICENSE-CERN-OHL-P
+├── LICENSE-MIT
+├── media
+│   ├── satyajit-feluda.jpg
+│   ├── satyajit-feluda.mp4
+│   ├── theme-tune-of-feluda.mp3
+│   └── theme-tune-of-feluda.wav
 ├── README.md
-└── index.html
+└── resources
+    ├── arduino_ide_settings.png
+    ├── attiny13-with-usbasp.png
+    ├── attiny13a-pinouts.jpg
+    ├── oshw-logo-400-px.png
+    ├── PC817-IC-Pinout.png
+    └── PC817-Internal-Pins.png
 ```
 
 ---
@@ -120,6 +120,3 @@ The melody notation is in `firmware/feluda_doorbell/feluda.rtttl.txt`. Not used 
 ---
 
 **Designed and developed by [Asif R. Porosh](https://uraal.online) · Rev 1.0 · 2023**
-
-[ledger-article]: <!-- LEDGER ARTICLE LINK -->
-[linkedin-article]: <!-- LINKEDIN ARTICLE LINK -->
