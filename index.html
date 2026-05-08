@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nokia RTTTL Player</title>
+    <meta name="description"
+        content="Play Nokia RTTTL ringtones in your browser. A free web-based Ring Tone Text Transfer Language player with presets like Iconice score by Satyajit Roy for the movie Sonar Kella, Mission Impossible, Tetris, and Knight Rider. No download needed.">
+    <meta name="keywords"
+        content="RTTTL player, Nokia ringtone player, RTTTL online, monophonic ringtone, web audio RTTTL, retro ringtone synthesizer">
+    <meta name="author" content="Asif R. Porosh">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Nokia RTTTL Player — Play Retro Ringtones in Your Browser">
+    <meta property="og:description"
+        content="A browser-based RTTTL ringtone player. Relive the monophonic era with Mission Impossible, Tetris, Star Wars, and custom tunes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asif-r-porosh.github.io/feluda-theme-song-doorbell/">
+    <meta name="twitter:card" content="summary">
+    <title>Nokia RTTTL Player — Play Retro Monophonic Ringtones Online</title>
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -79,7 +94,8 @@
             margin-bottom: 0.5rem;
         }
 
-        select, textarea {
+        select,
+        textarea {
             width: 100%;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -101,7 +117,8 @@
             padding-right: 2.5rem;
         }
 
-        select:focus, textarea:focus {
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #00d4aa;
             box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
@@ -188,33 +205,64 @@
                 padding: 1.5rem;
                 border-radius: 16px;
             }
-            h1 { font-size: 1.5rem; }
-            .about { font-size: 0.85rem; }
-            button { padding: 0.75rem 1rem; font-size: 0.9rem; }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .about {
+                font-size: 0.85rem;
+            }
+
+            button {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        .copyleft {
+            display: inline-block;
+            transform: scaleX(-1);
+            /* Flips the symbol horizontally */
+            /* For older browser support */
+            -webkit-transform: scaleX(-1);
+            -moz-transform: scaleX(-1);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Nokia RTTTL Player</h1>
         <p class="subheading">Ring Tone Text Transfer Language</p>
         <p class="about">
-            In the late 1990s and early 2000s, Nokia phones carried a magical language called <a href="https://en.wikipedia.org/wiki/Ring_Tone_Text_Transfer_Language"><em>RTTTL</em></a>. A few characters, a tiny speaker, and suddenly your pocket had a personality.
-        </p>    
+            In the late 1990s and early 2000s, Nokia phones carried a magical language called <a
+                href="https://en.wikipedia.org/wiki/Ring_Tone_Text_Transfer_Language"><em>RTTTL</em></a>. A few
+            characters, a tiny speaker, and suddenly your pocket had a personality.
+        </p>
         <div class="control-group">
             <label for="presetSelect">Preset Ringtones</label>
             <select id="presetSelect">
                 <option value="" disabled>Choose a preset...</option>
-                <option selected value="Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5">Feluda Theme: Satyajit Ray</option>
-                <option value="MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d">Mission: Impossible</option>
-                <option value="Tetris:d=4,o=5,b=160:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e6,8e6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,a">Tetris Theme</option>
-                <option value="Knight Rider:o=5,d=32,b=63:16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4d6,8p,4p,16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4f6">Knight Rider</option>
+                <option selected
+                    value="Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5">
+                    Feluda Theme: Satyajit Ray</option>
+                <option
+                    value="MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d">
+                    Mission: Impossible</option>
+                <option
+                    value="Tetris:d=4,o=5,b=160:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e6,8e6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,a">
+                    Tetris Theme</option>
+                <option
+                    value="Knight Rider:o=5,d=32,b=63:16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4d6,8p,4p,16e,f,e,8b,16e6,f6,e6,8b,16e,f,e,16b,16e6,4f6">
+                    Knight Rider</option>
             </select>
         </div>
 
         <div class="control-group">
             <label for="rtttlInput">RTTTL String</label>
-            <textarea id="rtttlInput" placeholder="Paste RTTTL here and press play..." spellcheck="false">Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5</textarea>
+            <textarea id="rtttlInput" placeholder="Paste RTTTL here and press play..."
+                spellcheck="false">Feluda:d=8,o=5,b=112:4c5,4c5,8b4,8c5,8d5,8p,4e5,4e5,8f5,8e5,8d5,8p,4c5,4c5,8b4,8c5,8a4,8p,4g4,8c5,8b4,8c5</textarea>
         </div>
 
         <div class="button-group">
@@ -222,11 +270,12 @@
             <button id="stopBtn" disabled>Stop</button>
         </div>
 
-        <div class="status" id="status"></div>    
+        <div class="status" id="status"></div>
+        <div><span class="copyleft">&copy;</span>Asif R. Porosh</div>
     </div>
 
     <script>
-        (function() {
+        (function () {
             'use strict';
 
             const NOTE_FREQUENCIES = {
@@ -250,13 +299,13 @@
                 const [, defaultsStr, notesStr] = parts;
 
                 const defaults = { d: 4, o: 6, b: 63 };
-                defaultsStr.split(',').forEach(function(pair) {
+                defaultsStr.split(',').forEach(function (pair) {
                     const kv = pair.split('=');
                     if (kv[0] && kv[1]) defaults[kv[0].trim()] = parseInt(kv[1].trim(), 10);
                 });
 
                 const notes = [];
-                const noteTokens = notesStr.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+                const noteTokens = notesStr.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
 
                 for (let i = 0; i < noteTokens.length; i++) {
                     const token = noteTokens[i];
@@ -337,13 +386,13 @@
             }
 
             function stopPlayback() {
-                timeoutIds.forEach(function(id) { clearTimeout(id); });
+                timeoutIds.forEach(function (id) { clearTimeout(id); });
                 timeoutIds = [];
 
-                activeNodes.forEach(function(node) {
+                activeNodes.forEach(function (node) {
                     try {
                         node.stop();
-                    } catch (e) {}
+                    } catch (e) { }
                 });
                 activeNodes = [];
 
@@ -411,7 +460,7 @@
                     const durationMs = getDurationMs(n.duration, n.dot, n.bpm);
                     const noteStartMs = accumulatedMs;
 
-                    const timeoutId = setTimeout(function() {
+                    const timeoutId = setTimeout(function () {
                         if (!isPlaying) return;
                         if (freq > 0) {
                             const startTime = ctx.currentTime;
@@ -423,7 +472,7 @@
                     accumulatedMs += durationMs + gapMs;
                 }
 
-                const finishId = setTimeout(function() {
+                const finishId = setTimeout(function () {
                     if (isPlaying) {
                         stopPlayback();
                         showStatus('Finished', '');
@@ -448,7 +497,7 @@
                 statusEl.className = 'status' + (type ? ' ' + type : '');
             }
 
-            presetSelect.addEventListener('change', function() {
+            presetSelect.addEventListener('change', function () {
                 const value = this.value;
                 if (value) {
                     stopPlayback();
@@ -457,7 +506,7 @@
                 }
             });
 
-            playBtn.addEventListener('click', function() {
+            playBtn.addEventListener('click', function () {
                 const rtttl = rtttlInput.value.trim();
                 if (!rtttl) {
                     showStatus('Please enter an RTTTL string', 'error');
@@ -466,12 +515,12 @@
                 playRTTTL(rtttl);
             });
 
-            stopBtn.addEventListener('click', function() {
+            stopBtn.addEventListener('click', function () {
                 stopPlayback();
                 showStatus('Stopped', '');
             });
 
-            rtttlInput.addEventListener('keydown', function(e) {
+            rtttlInput.addEventListener('keydown', function (e) {
                 if (e.ctrlKey && e.key === 'Enter') {
                     playBtn.click();
                 }
@@ -479,4 +528,5 @@
         })();
     </script>
 </body>
+
 </html>
