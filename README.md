@@ -5,6 +5,9 @@ Satyajit Ray's signature score — theme tune of Feluda, as a doorbell.
 https://github.com/user-attachments/assets/74deee0a-7490-4855-85e3-ecdfaa2aca0f
 
 ---
+**Read the full story:** [LinkedIn](https://www.linkedin.com/pulse/834-bytes-feluda-asifur-rahman-p5ffc) · [Ledger](https://ledger.uraal.online/electronics/834-bytes-of-feluda/)
+
+---
 
 ## How It Works
 
